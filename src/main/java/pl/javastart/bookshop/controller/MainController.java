@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import pl.javastart.bookshop.MySql.MySql;
 import pl.javastart.bookshop.model.Book;
 
 import java.io.IOException;
@@ -55,16 +56,15 @@ public class MainController implements Initializable {
     @FXML
     private TextField delField;
 
+    final MySql mySql = new MySql("localhost", 3306, "books", "root", "admin", 4, 4);
 
 
-
-    public ObservableList<Book> getBooksList() {
+    public ObservableList<Book> getBooksList() throws SQLException {
         ObservableList<Book> booksList = FXCollections.observableArrayList();
-        Connection connection = getConnection();
+        Connection connection = mySql.getHikari().getConnection();
         String query = "SELECT * FROM book";
         Statement statement;
         ResultSet rs;
-
         try {
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
@@ -79,18 +79,9 @@ public class MainController implements Initializable {
         return booksList;
     }
 
-    public void executeQuery(String query) {
-        Connection connection = getConnection();
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void insertButton() {
+
+    public void insertButton() throws SQLException {
         String query = "insert into book values("+idField.getText()+",'"+titleField.getText()+"','"+authorField.getText()+"',"+priceField.getText()+")";
 
         if (idField.getText().isEmpty() || titleField.getText().isEmpty() || authorField.getText().isEmpty()) {
@@ -99,7 +90,7 @@ public class MainController implements Initializable {
             alertError.setContentText("TextField like id, title and author can not be null!");
             alertError.show();
         } else {
-            executeQuery(query);
+            mySql.executeQuery(query);
             idField.setText("");
             titleField.setText("");
             authorField.setText("");
@@ -108,13 +99,13 @@ public class MainController implements Initializable {
         }
     }
 
-    public void updateButton() {
+    public void updateButton() throws SQLException {
         String query = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
-        executeQuery(query);
+        mySql.executeQuery(query);
         showBooks();
     }
 
-    public void deleteButton() {
+    public void deleteButton() throws SQLException {
         String query = "DELETE FROM book WHERE ID="+delField.getText()+"";
 
         if (delField.getText().isEmpty()) {
@@ -122,7 +113,7 @@ public class MainController implements Initializable {
             alert.setContentText("TextField can not be null. Please type us ID of book what you want delete!");
             alert.show();
         } else {
-            executeQuery(query);
+            mySql.executeQuery(query);
             delField.setText("");
             showBooks();
             Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
@@ -136,7 +127,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showBooks();
+        try {
+            showBooks();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -146,21 +141,7 @@ public class MainController implements Initializable {
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
-
-
-    public Connection getConnection() {
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books?useSSL=false&serverTimezone=Europe/Warsaw", "root", "admin");
-            return connection;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void showBooks() {
+    public void showBooks() throws SQLException {
         ObservableList<Book> booksList = getBooksList();
         idColumn.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));

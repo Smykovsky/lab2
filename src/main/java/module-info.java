@@ -7,6 +7,9 @@ module pl.javastart.bookshop {
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires lombok;
+    requires org.slf4j;
+    requires com.zaxxer.hikari;
 
     opens pl.javastart.bookshop to javafx.fxml;
     exports pl.javastart.bookshop;
