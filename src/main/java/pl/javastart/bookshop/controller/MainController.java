@@ -127,12 +127,12 @@ public class MainController implements Initializable {
         try {
             showBooks();
 //            CREATE TABLE Category (
-//                    id INT PRIMARY KEY,
+//                    id INT(11) PRIMARY KEY AUTO_INCREMENT,
 //                    name VARCHAR(255)
 //            );
 //
 //            CREATE TABLE Book (
-//                    id INT PRIMARY KEY,
+//                    id INT(11) PRIMARY KEY AUTO_INCREMENT,
 //                    title VARCHAR(255),
 //                    author VARCHAR(255),
 //                    price DECIMAL(10, 2),
