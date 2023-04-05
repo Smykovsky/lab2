@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
    <children>
       <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="83.0" prefWidth="602.0" style="-fx-background-color: lightgrey;">
          <children>
@@ -19,7 +19,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="6.0" layoutY="98.0" prefHeight="135.0" prefWidth="581.0">
+      <Pane layoutX="10.0" layoutY="82.0" prefHeight="167.0" prefWidth="581.0">
          <children>
             <Label layoutX="8.0" layoutY="18.0" text="Book ID" />
             <Label layoutX="8.0" layoutY="48.0" text="Book Title" />
@@ -33,14 +33,17 @@
             <Button fx:id="btndel" layoutX="436.0" layoutY="54.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="DELETE" />
             <Button fx:id="btnedit" layoutX="436.0" layoutY="96.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="EDIT" />
             <TextField fx:id="delField" layoutX="531.0" layoutY="56.0" prefHeight="26.0" prefWidth="37.0" />
+            <TextField fx:id="categoryField" layoutX="84.0" layoutY="134.0" prefHeight="15.0" prefWidth="200.0" />
+            <Label layoutX="9.0" layoutY="138.0" text="Category" />
          </children>
       </Pane>
-      <TableView fx:id="tableView" layoutX="1.0" layoutY="234.0" prefHeight="162.0" prefWidth="600.0">
+      <TableView fx:id="tableView" layoutX="1.0" layoutY="247.0" prefHeight="149.0" prefWidth="600.0">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="150.0" text="Book ID" />
-            <TableColumn fx:id="titleColumn" prefWidth="150.0" text="Book Title" />
-            <TableColumn fx:id="authorColumn" prefWidth="150.0" text="Author" />
-            <TableColumn fx:id="priceColumn" prefWidth="150.0" text="Price" />
+            <TableColumn fx:id="idColumn" prefWidth="120.0" text="Book ID" />
+            <TableColumn fx:id="titleColumn" prefWidth="120.0" text="Book Title" />
+            <TableColumn fx:id="authorColumn" prefWidth="120.0" text="Author" />
+            <TableColumn fx:id="priceColumn" prefWidth="120.0" text="Price" />
+            <TableColumn fx:id="categoryColumn" prefWidth="120.0" text="Price" />
         </columns>
       </TableView>
    </children>

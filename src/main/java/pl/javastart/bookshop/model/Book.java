@@ -2,23 +2,25 @@ package pl.javastart.bookshop.model;
 
 
 public class Book {
-    private int id;
+    private Integer id;
     private String title;
     private String author;
-    private int price;
+    private double price;
+    private Integer categoryId;
 
-    public Book(int id, String title, String author, int price) {
+    public Book(int id, String title, String author, double price, int categoryId) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
+        this.categoryId = categoryId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,11 +40,19 @@ public class Book {
         this.author = author;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }
