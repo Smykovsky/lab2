@@ -1,22 +1,13 @@
 package pl.javastart.bookshop.controller;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import pl.javastart.bookshop.model.Book;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -34,7 +25,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Book, Integer> priceColumn;
     @FXML
-    private TableColumn<?, ?> categoryColumn;
+    private TableColumn<Book, Integer> categoryColumn;
     @FXML
     private TableView<Book> tableView;
     @FXML
@@ -61,7 +52,7 @@ public class MainController implements Initializable {
             rs = statement.executeQuery(query);
             Book book;
             while (rs.next()) {
-                book = new Book(rs.getInt("Id"), rs.getString("Title"), rs.getString("Author"), rs.getInt("Price"), rs.getInt("Category"));
+                book = new Book(rs.getInt("Id"), rs.getString("Title"), rs.getString("Author"), rs.getInt("Price"), rs.getInt("Category_id"));
                 booksList.add(book);
             }
         } catch (Exception e) {
@@ -97,20 +88,21 @@ public class MainController implements Initializable {
     }
 
     public void updateButton() throws SQLException {
-        String query = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
-        executeQuery(query);
+        String sql = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.execute(sql);
         showBooks();
     }
 
     public void deleteButton() throws SQLException {
-        String query = "DELETE FROM book WHERE ID="+delField.getText()+"";
-
+        String sql = "DELETE FROM book WHERE ID="+delField.getText()+"";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
         if (delField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("TextField can not be null. Please type us ID of book what you want delete!");
             alert.show();
         } else {
-            executeQuery(query);
+            statement.execute(sql);
             delField.setText("");
             showBooks();
             Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
@@ -149,6 +141,7 @@ public class MainController implements Initializable {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
     }
 
     public void showBooks() throws SQLException {
@@ -157,6 +150,7 @@ public class MainController implements Initializable {
         titleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<Book, Integer>("price"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<Book, Integer>("categoryId"));
 
         tableView.setItems(booksList);
     }

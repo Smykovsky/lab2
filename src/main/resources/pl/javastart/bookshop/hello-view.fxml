@@ -19,7 +19,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="10.0" layoutY="82.0" prefHeight="167.0" prefWidth="581.0">
+      <Pane layoutX="3.0" layoutY="82.0" prefHeight="167.0" prefWidth="594.0">
          <children>
             <Label layoutX="8.0" layoutY="18.0" text="Book ID" />
             <Label layoutX="8.0" layoutY="48.0" text="Book Title" />
@@ -43,7 +43,7 @@
             <TableColumn fx:id="titleColumn" prefWidth="120.0" text="Book Title" />
             <TableColumn fx:id="authorColumn" prefWidth="120.0" text="Author" />
             <TableColumn fx:id="priceColumn" prefWidth="120.0" text="Price" />
-            <TableColumn fx:id="categoryColumn" prefWidth="120.0" text="Price" />
+            <TableColumn fx:id="categoryColumn" prefWidth="120.0" text="Category" />
         </columns>
       </TableView>
    </children>
