@@ -83,6 +83,7 @@ public class MainController implements Initializable {
             titleField.setText("");
             authorField.setText("");
             priceField.setText("");
+            categoryField.setText("");
             showBooks();
         }
     }
@@ -104,11 +105,12 @@ public class MainController implements Initializable {
         } else {
             statement.execute(sql);
             delField.setText("");
-//            showBooks();
+            showBooks();
             Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
             alertSuccess.setTitle("SUCCESFUL :)");
             alertSuccess.setContentText("Succesful! The Book has been deleted from list :)");
             alertSuccess.show();
+
         }
 
     }
