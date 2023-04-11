@@ -10,8 +10,7 @@ module pl.javastart.bookshop {
     requires lombok;
     requires org.slf4j;
     requires com.zaxxer.hikari;
-    requires org.hibernate.commons.annotations;
-    requires org.hibernate.orm.core;
+    requires java.persistence;
 
     opens pl.javastart.bookshop to javafx.fxml;
     opens pl.javastart.bookshop.model to lombok;

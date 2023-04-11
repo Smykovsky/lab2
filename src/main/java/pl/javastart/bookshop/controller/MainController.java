@@ -91,7 +91,7 @@ public class MainController implements Initializable {
         String sql = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
         PreparedStatement statement = getConnection().prepareStatement(sql);
         statement.execute(sql);
-        showBooks();
+//        showBooks();
     }
 
     public void deleteButton() throws SQLException {
@@ -104,7 +104,7 @@ public class MainController implements Initializable {
         } else {
             statement.execute(sql);
             delField.setText("");
-            showBooks();
+//            showBooks();
             Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
             alertSuccess.setTitle("SUCCESFUL :)");
             alertSuccess.setContentText("Succesful! The Book has been deleted from list :)");

@@ -1,6 +1,5 @@
 package pl.javastart.bookshop.model;
 
-
 public class Book {
     private Integer id;
     private String title;
@@ -15,6 +14,8 @@ public class Book {
         this.price = price;
         this.categoryId = categoryId;
     }
+
+    public Book() {}
 
     public Integer getId() {
         return id;

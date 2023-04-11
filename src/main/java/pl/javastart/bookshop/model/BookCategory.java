@@ -9,6 +9,8 @@ public class BookCategory {
         this.name = name;
     }
 
+    public BookCategory() {}
+
     public int getId() {
         return id;
     }

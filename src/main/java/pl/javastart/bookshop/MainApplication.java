@@ -3,12 +3,9 @@ package pl.javastart.bookshop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import java.io.IOException;
+import java.lang.module.Configuration;
 
 public class MainApplication extends Application {
     @Override
@@ -21,7 +18,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        HibernateUtil.initSessionFactory();
         launch(args);
     }
 }
