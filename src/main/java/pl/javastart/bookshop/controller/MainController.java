@@ -52,7 +52,11 @@ public class MainController implements Initializable {
             rs = statement.executeQuery(query);
             Book book;
             while (rs.next()) {
-                book = new Book(rs.getInt("Id"), rs.getString("Title"), rs.getString("Author"), rs.getInt("Price"), rs.getInt("Category_id"));
+                book = new Book(rs.getInt("Id"),
+                                rs.getString("Title"),
+                                rs.getString("Author"),
+                                rs.getInt("Price"),
+                                rs.getInt("Category_id"));
                 booksList.add(book);
             }
         } catch (Exception e) {
@@ -63,21 +67,17 @@ public class MainController implements Initializable {
 
 
 
-    public void insertButton() throws SQLException {
+    public void insertButton() {
         String sql = "INSERT INTO book VALUES (?, ?, ?, ?, ?);";
-        PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, Integer.parseInt(idField.getText()));
-        statement.setString(2, titleField.getText());
-        statement.setString(3, authorField.getText());
-        statement.setDouble(4, Double.parseDouble(priceField.getText()));
-        statement.setInt(5, Integer.parseInt(categoryField.getText()));
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, Integer.parseInt(idField.getText()));
+            statement.setString(2, titleField.getText());
+            statement.setString(3, authorField.getText());
+            statement.setDouble(4, Double.parseDouble(priceField.getText()));
+            statement.setInt(5, Integer.parseInt(categoryField.getText()));
 
-        if (idField.getText().isEmpty() || titleField.getText().isEmpty() || authorField.getText().isEmpty()) {
-            Alert alertError = new Alert(Alert.AlertType.ERROR);
-            alertError.setTitle("FAILED :(");
-            alertError.setContentText("TextField like id, title and author can not be null!");
-            alertError.show();
-        } else {
             statement.execute();
             idField.setText("");
             titleField.setText("");
@@ -85,34 +85,51 @@ public class MainController implements Initializable {
             priceField.setText("");
             categoryField.setText("");
             showBooks();
+        } catch (SQLException e) {
+            System.out.println("ERROR");
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("FAILED :(");
+            alertError.setContentText(String.valueOf(e));
+            alertError.show();
+
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void updateButton() {
+        String sql = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
+            statement.execute(sql);
+            showBooks();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void updateButton() throws SQLException {
-        String sql = "UPDATE book SET Title='"+titleField.getText()+"',Author='"+authorField.getText()+"',Price="+priceField.getText()+" WHERE ID="+idField.getText()+"";
-        PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.execute(sql);
-//        showBooks();
-    }
-
-    public void deleteButton() throws SQLException {
+    public void deleteButton() {
         String sql = "DELETE FROM book WHERE ID="+delField.getText()+"";
-        PreparedStatement statement = getConnection().prepareStatement(sql);
-        if (delField.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("TextField can not be null. Please type us ID of book what you want delete!");
-            alert.show();
-        } else {
+        PreparedStatement statement = null;
+        try {
+            statement = getConnection().prepareStatement(sql);
             statement.execute(sql);
+
             delField.setText("");
             showBooks();
+
             Alert alertSuccess = new Alert(Alert.AlertType.CONFIRMATION);
             alertSuccess.setTitle("SUCCESFUL :)");
             alertSuccess.setContentText("Succesful! The Book has been deleted from list :)");
             alertSuccess.show();
-
+        } catch (SQLException e) {
+            System.out.println("ERROR!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(String.valueOf(e));
+            alert.show();
         }
-
     }
 
 
@@ -134,7 +151,7 @@ public class MainController implements Initializable {
 //                    FOREIGN KEY (category_id) REFERENCES Category(id)
 //            );
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR");
         }
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
