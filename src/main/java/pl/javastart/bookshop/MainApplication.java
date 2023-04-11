@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.io.IOException;
 
@@ -19,6 +21,6 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+
     }
 }
