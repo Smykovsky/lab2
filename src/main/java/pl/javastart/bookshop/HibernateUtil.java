@@ -7,17 +7,15 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+    public static SessionFactory sessionFactory;
 
-    public static SessionFactory buildSessionFactory() {
+    public static void initSessionFactory() {
         try {
             Configuration configuration = new Configuration().configure();
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
 
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-
-            return sessionFactory;
+            HibernateUtil.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("ERROR!");
@@ -29,6 +27,8 @@ public class HibernateUtil {
     }
 
     public static void shutdown() {
-        getSessionFactory().close();
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
     }
 }
