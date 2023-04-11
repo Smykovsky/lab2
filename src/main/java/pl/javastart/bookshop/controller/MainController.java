@@ -41,7 +41,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField delField;
 
-    public ObservableList<Book> getBooksList() throws SQLException {
+    public ObservableList<Book> getBooksList() {
         ObservableList<Book> booksList = FXCollections.observableArrayList();
         Connection connection = getConnection();
         String query = "SELECT * FROM book";
