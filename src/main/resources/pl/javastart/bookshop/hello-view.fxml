@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
    <children>
-      <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="83.0" prefWidth="602.0" style="-fx-background-color: lightgrey;">
+      <Pane layoutY="-1.0" prefHeight="89.0" prefWidth="800.0" style="-fx-background-color: lightgrey;">
          <children>
             <Label layoutX="33.0" layoutY="20.0" text="Book Shop">
                <font>
@@ -30,7 +30,7 @@
             </Text>
          </children>
       </Pane>
-      <Pane layoutX="3.0" layoutY="82.0" prefHeight="167.0" prefWidth="594.0">
+      <Pane layoutX="3.0" layoutY="82.0" prefHeight="167.0" prefWidth="800.0">
          <children>
             <Label layoutX="8.0" layoutY="18.0" text="Book ID" />
             <Label layoutX="8.0" layoutY="48.0" text="Book Title" />
@@ -39,23 +39,28 @@
             <TextField fx:id="idField" layoutX="84.0" layoutY="14.0" prefHeight="26.0" prefWidth="200.0" />
             <TextField fx:id="titleField" layoutX="84.0" layoutY="43.0" prefHeight="15.0" prefWidth="200.0" />
             <TextField fx:id="authorField" layoutX="84.0" layoutY="72.0" prefHeight="15.0" prefWidth="200.0" />
-            <Button fx:id="btnadd" layoutX="436.0" layoutY="12.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD" />
             <TextField fx:id="priceField" layoutX="84.0" layoutY="102.0" prefHeight="15.0" prefWidth="200.0" />
-            <Button fx:id="btndel" layoutX="436.0" layoutY="54.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="DELETE" />
-            <Button fx:id="btnedit" layoutX="436.0" layoutY="96.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="EDIT" />
-            <TextField fx:id="delField" layoutX="531.0" layoutY="56.0" prefHeight="26.0" prefWidth="37.0" />
             <TextField fx:id="categoryField" layoutX="84.0" layoutY="134.0" prefHeight="15.0" prefWidth="200.0" />
             <Label layoutX="9.0" layoutY="138.0" text="Category" />
+            <Label layoutX="423.0" layoutY="16.0" text="Category ID" />
+            <Label layoutX="423.0" layoutY="46.0" text="Category name" />
+            <TextField fx:id="categoryIdField" layoutX="526.0" layoutY="12.0" prefHeight="26.0" prefWidth="200.0" />
+            <TextField fx:id="categoryNameField" layoutX="526.0" layoutY="41.0" prefHeight="15.0" prefWidth="200.0" />
          </children>
       </Pane>
-      <TableView fx:id="tableView" layoutX="1.0" layoutY="247.0" prefHeight="149.0" prefWidth="600.0">
+      <TableView fx:id="tableView" layoutY="293.0" prefHeight="259.0" prefWidth="800.0">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="120.0" text="Book ID" />
-            <TableColumn fx:id="titleColumn" prefWidth="120.0" text="Book Title" />
-            <TableColumn fx:id="authorColumn" prefWidth="120.0" text="Author" />
-            <TableColumn fx:id="priceColumn" prefWidth="120.0" text="Price" />
-            <TableColumn fx:id="categoryColumn" prefWidth="120.0" text="Category" />
+            <TableColumn fx:id="idColumn" prefWidth="160.0" text="Book ID" />
+            <TableColumn fx:id="titleColumn" prefWidth="160.0" text="Book Title" />
+            <TableColumn fx:id="authorColumn" prefWidth="160.0" text="Author" />
+            <TableColumn fx:id="priceColumn" prefWidth="160.0" text="Price" />
+            <TableColumn fx:id="categoryColumn" prefWidth="160.0" text="Category" />
         </columns>
       </TableView>
+      <Button fx:id="btnadd" layoutX="3.0" layoutY="249.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD" />
+      <Button fx:id="btndel" layoutX="376.0" layoutY="249.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="DELETE" />
+      <Button fx:id="btnedit" layoutX="277.0" layoutY="250.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="EDIT" />
+      <TextField fx:id="delField" layoutX="473.0" layoutY="252.0" prefHeight="26.0" prefWidth="37.0" />
+      <Button fx:id="btnInsert" layoutX="99.0" layoutY="249.0" mnemonicParsing="false" onAction="#doubleInsertButton" prefHeight="30.0" prefWidth="171.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD BOOK + CATEGORY" />
    </children>
 </Pane>

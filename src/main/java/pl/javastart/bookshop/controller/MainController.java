@@ -2,6 +2,7 @@ package pl.javastart.bookshop.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,6 +16,8 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     private Button btnadd;
+    @FXML
+    private Button btnInsert;
 
     @FXML
     private TableColumn<Book, Integer> idColumn;
@@ -38,6 +41,10 @@ public class MainController implements Initializable {
     private TextField priceField;
     @FXML
     private TextField categoryField;
+    @FXML
+    private TextField categoryIdField;
+    @FXML
+    private TextField categoryNameField;
     @FXML
     private TextField delField;
 
@@ -68,24 +75,29 @@ public class MainController implements Initializable {
 
 
     public void insertButton() throws SQLException {
-        String sql = "INSERT INTO book VALUES (?, ?, ?, ?, ?);";
-        Connection connection = getConnection();
-        System.out.println("Otworzono połączenie!");
+        String sqlBook = "INSERT INTO book VALUES (?, ?, ?, ?, ?);";
         PreparedStatement statement = null;
+        Connection connection = null;
         try {
-            statement = connection.prepareStatement(sql);
+            connection = getConnection();
+            connection.setAutoCommit(false);
+
+            statement = connection.prepareStatement(sqlBook);
             statement.setInt(1, Integer.parseInt(idField.getText()));
             statement.setString(2, titleField.getText());
             statement.setString(3, authorField.getText());
             statement.setDouble(4, Double.parseDouble(priceField.getText()));
             statement.setInt(5, Integer.parseInt(categoryField.getText()));
+            statement.executeUpdate();
 
-            statement.execute();
+            connection.commit();
+
             idField.setText("");
             titleField.setText("");
             authorField.setText("");
             priceField.setText("");
             categoryField.setText("");
+
             showBooks();
         } catch (SQLException e) {
             System.out.println("ERROR");
@@ -104,6 +116,50 @@ public class MainController implements Initializable {
 //            }
 //        }
 
+    }
+    public void doubleInsertButton() {
+        String sqlBook = "INSERT INTO book VALUES (?, ?, ?, ?, ?);";
+        String sqlCategory = "INSERT INTO category VALUES (?, ?);";
+        PreparedStatement statementBook = null;
+        PreparedStatement statementCategory = null;
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+
+            statementCategory = connection.prepareStatement(sqlCategory);
+            statementCategory.setInt(1, Integer.parseInt(categoryIdField.getText()));
+            statementCategory.setString(2, categoryNameField.getText());
+            statementCategory.executeUpdate();
+
+            statementBook = connection.prepareStatement(sqlBook);
+            statementBook.setInt(1, Integer.parseInt(idField.getText()));
+            statementBook.setString(2, titleField.getText());
+            statementBook.setString(3, authorField.getText());
+            statementBook.setDouble(4, Double.parseDouble(priceField.getText()));
+            statementBook.setInt(5, Integer.parseInt(categoryField.getText()));
+            statementBook.executeUpdate();
+
+            connection.commit();
+
+            idField.setText("");
+            titleField.setText("");
+            authorField.setText("");
+            priceField.setText("");
+            categoryField.setText("");
+
+            categoryIdField.setText("");
+            categoryNameField.setText("");
+            showBooks();
+        } catch (SQLException e) {
+            System.out.println("ERROR");
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("FAILED :(");
+            alertError.setContentText(String.valueOf(e));
+            alertError.show();
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateButton() {
