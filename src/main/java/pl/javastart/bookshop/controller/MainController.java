@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.javastart.bookshop.model.Book;
+import pl.javastart.bookshop.model.BookCategory;
 
 import java.net.URL;
 import java.sql.*;
@@ -31,6 +32,12 @@ public class MainController implements Initializable {
     private TableColumn<Book, Integer> categoryColumn;
     @FXML
     private TableView<Book> tableView;
+    @FXML
+    private TableView<BookCategory> categoryTable;
+    @FXML
+    private TableColumn<BookCategory, String> nameColumn;
+    @FXML
+    private TableColumn<BookCategory, Integer> categoryIdColumn;
     @FXML
     private TextField idField;
     @FXML
@@ -70,6 +77,27 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
         return booksList;
+    }
+
+    public ObservableList<BookCategory> getCategoryList() {
+        ObservableList<BookCategory> categoryList = FXCollections.observableArrayList();
+        Connection connection = getConnection();
+        String query = "SELECT * FROM CATEGORY";
+        Statement statement;
+        ResultSet rs;
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            BookCategory bookCategory;
+            while (rs.next()) {
+                bookCategory = new BookCategory(rs.getInt("Id"),
+                                                rs.getString("Name"));
+                categoryList.add(bookCategory);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return categoryList;
     }
 
 
@@ -201,6 +229,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             showBooks();
+            showCategories();
 //            CREATE TABLE Category (
 //                    id INT(11) PRIMARY KEY AUTO_INCREMENT,
 //                    name VARCHAR(255)
@@ -219,12 +248,15 @@ public class MainController implements Initializable {
         }
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
+
+        categoryTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        categoryIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
     public void showBooks() throws SQLException {
@@ -236,6 +268,13 @@ public class MainController implements Initializable {
         categoryColumn.setCellValueFactory(new PropertyValueFactory<Book, Integer>("categoryId"));
 
         tableView.setItems(booksList);
+    }
+
+    public void showCategories() {
+        ObservableList<BookCategory> categories = getCategoryList();
+        categoryIdColumn.setCellValueFactory(new PropertyValueFactory<BookCategory, Integer>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<BookCategory, String>("name"));
+        categoryTable.setItems(categories);
     }
 
     public void executeQuery(String query) throws SQLException {

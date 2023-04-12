@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.javastart.bookshop.controller.MainController">
    <children>
-      <Pane layoutY="-1.0" prefHeight="89.0" prefWidth="800.0" style="-fx-background-color: lightgrey;">
+      <Pane layoutY="-1.0" prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: lightgrey;">
          <children>
             <Label layoutX="281.0" layoutY="15.0" prefHeight="57.0" prefWidth="277.0" text="Book Shop">
                <font>
@@ -19,7 +19,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="3.0" layoutY="82.0" prefHeight="167.0" prefWidth="800.0">
+      <Pane layoutX="3.0" layoutY="98.0" prefHeight="210.0" prefWidth="800.0">
          <children>
             <Label layoutX="8.0" layoutY="18.0" text="Book ID" />
             <Label layoutX="8.0" layoutY="48.0" text="Book Title" />
@@ -37,7 +37,7 @@
             <TextField fx:id="categoryNameField" layoutX="526.0" layoutY="41.0" prefHeight="15.0" prefWidth="200.0" />
          </children>
       </Pane>
-      <TableView fx:id="tableView" layoutY="293.0" prefHeight="259.0" prefWidth="800.0">
+      <TableView fx:id="tableView" layoutY="308.0" prefHeight="200.0" prefWidth="800.0">
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="160.0" text="Book ID" />
             <TableColumn fx:id="titleColumn" prefWidth="160.0" text="Book Title" />
@@ -46,10 +46,16 @@
             <TableColumn fx:id="categoryColumn" prefWidth="160.0" text="Category" />
         </columns>
       </TableView>
-      <Button fx:id="btnadd" layoutX="3.0" layoutY="249.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD" />
-      <Button fx:id="btndel" layoutX="376.0" layoutY="249.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="DELETE" />
-      <Button fx:id="btnedit" layoutX="277.0" layoutY="250.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="EDIT" />
-      <TextField fx:id="delField" layoutX="473.0" layoutY="252.0" prefHeight="26.0" prefWidth="37.0" />
-      <Button fx:id="btnInsert" layoutX="99.0" layoutY="249.0" mnemonicParsing="false" onAction="#doubleInsertButton" prefHeight="30.0" prefWidth="171.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD BOOK + CATEGORY" />
+      <Button fx:id="btnadd" layoutX="3.0" layoutY="265.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD" />
+      <Button fx:id="btndel" layoutX="376.0" layoutY="265.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="DELETE" />
+      <Button fx:id="btnedit" layoutX="277.0" layoutY="266.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="EDIT" />
+      <TextField fx:id="delField" layoutX="473.0" layoutY="268.0" prefHeight="26.0" prefWidth="37.0" />
+      <Button fx:id="btnInsert" layoutX="99.0" layoutY="265.0" mnemonicParsing="false" onAction="#doubleInsertButton" prefHeight="30.0" prefWidth="171.0" style="-fx-background-radius: 15; -fx-background-color: lightgrey;" text="ADD BOOK + CATEGORY" />
+      <TableView fx:id="categoryTable" layoutY="508.0" prefHeight="200.0" prefWidth="800.0">
+         <columns>
+            <TableColumn fx:id="categoryIdColumn" prefWidth="400.0" text="Category ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="400.0" text="Name" />
+         </columns>
+      </TableView>
    </children>
 </Pane>
