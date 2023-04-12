@@ -96,12 +96,13 @@ public class MainController implements Initializable {
 
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (connection != null) {
-                connection.close();
-                System.out.println("Zamykam połączenie!");
-            }
         }
+//        finally {
+//            if (connection != null) {
+//                connection.close();
+//                System.out.println("Zamykam połączenie!");
+//            }
+//        }
 
     }
 
