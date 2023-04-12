@@ -67,11 +67,13 @@ public class MainController implements Initializable {
 
 
 
-    public void insertButton() {
+    public void insertButton() throws SQLException {
         String sql = "INSERT INTO book VALUES (?, ?, ?, ?, ?);";
+        Connection connection = getConnection();
+        System.out.println("Otworzono połączenie!");
         PreparedStatement statement = null;
         try {
-            statement = getConnection().prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(idField.getText()));
             statement.setString(2, titleField.getText());
             statement.setString(3, authorField.getText());
@@ -94,6 +96,11 @@ public class MainController implements Initializable {
 
         } catch (NumberFormatException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                connection.close();
+                System.out.println("Zamykam połączenie!");
+            }
         }
 
     }
